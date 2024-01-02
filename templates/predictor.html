@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Stroke Machine Learning Prediction</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="../static/style.css">
+  <script
+  src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+  {% include 'navbar.html' %}
+    <div class="container my-container">
+        <div class="row justify-content-center my-row">
+            <div class="col-12 my-col1 text-center">
+                <h1>Stroke Prediction</h1>
+                <p>Input your data to explore your risk of stroke* </p>
+            </div>
+        </div>
+        <form id="user-input" action="/predict" method ="POST">
+            <div class="form-row justify-content-center row">
+              <div class="form-group my-col align-self-center col-2">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" class="form-control">
+                    <option selected>Choose...</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+              </div>
+              <div class="form-group my-col col-2">
+                <label for='age'>Age</label>
+                <input id ='age' name='age' class="form-control" type="text" placeholder="input your age">
+              </div>
+            </div>
+            <div class="form-row justify-content-center row">
+                <div class="form-group my-col align-self-center col-2">
+                  <label for="hypertension">Hypertension</label>
+                  <select id="hypertension" name="hypertension" class="form-control">
+                      <option selected>Choose...</option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                </div>
+                <div class="form-group my-col col-2">
+                  <label for="heartdisease">Heart Disease</label>
+                  <select id="heartdisease" name="heartdisease" class="form-control">
+                      <option selected>Choose...</option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                </div>
+              </div>
+              <div class="form-row justify-content-center row">
+              </div>
+              <div class="form-row justify-content-center row">
+                <div class="form-group my-col align-self-center col-2">
+                  <label for="bmi"><a href="https://www.nhlbi.nih.gov/health/educational/lose_wt/BMI/bmicalc.htm">BMI</a></label>
+                  <input id="bmi" name="bmi" class="form-control" type="text" placeholder="input BMI">
+                </div>
+                <div class="form-group my-col col-2">
+                  <label for="smoke">Smoking Status</label>
+                  <select id="smoke" name="smoke" class="form-control">
+                      <option selected>Choose...</option>
+                      <option value="smoking_status_smokes">Smoker</option>
+                      <option value="smoking_status_never">Non-Smoker</option>
+                      <option value="smoking_status_formerly">Former Smoker</option>
+                    </select>
+                </div>
+                <div class="form-row justify-content-center row">
+                  <div class="form-group my-col col-2">
+                    <label for="glucose">Glucose Level</label>
+                    <input id="glucose" name="glucose" class="form-control" type="text" placeholder="input your level">
+                  </div>
+                </div>
+              </div>
+            <div class="form-row text-center">
+            <button id="user_submit" class="btn btn-primary">Submit</button>
+            <!-- <button id="user_submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submitButton">Submit</button> -->
+          </form>
+          <div class="modal" id="submitButton">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title">Your Stroke Prediciton is:</h2>
+                  <button id="submit_input" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                {% if prediction_text != '' %}
+                <script>
+                  $(document).ready(function(){
+                      $("#submitButton").modal('show');
+                  });
+              </script>
+                {% endif %}
+                <div class="modal-body" id="predictor">
+                  <p class="text-danger"><b>{{prediction_text}}</b></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h6>*This project was developed by students to demonstrate machine learning. If you suspect you are having
+            a stroke, call 911 immediately.
+          </h6>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+<script src="../static/logic.js"></script>
+
+
+</body>
+</html>
